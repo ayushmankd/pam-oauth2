@@ -14,7 +14,10 @@ endif
 
 PAM_DIR=$(LIBDIR)/security
 
-all: pam_oauth2.so
+all: pam_oauth2.o pam_oauth2.so 
+
+pam_oauth2.o: pam_oauth2.c
+	$(CC) pam_oauth2.c -lcurl -lpam -shared -o pam_oauth2.o
 
 pam_oauth2.so: pam_oauth2.o
 	$(CC) -shared $^ -lcurl -o $@
